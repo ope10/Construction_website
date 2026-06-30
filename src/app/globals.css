@@ -1,26 +1,177 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-obsidian-50: #f5f6f8;
+  --color-obsidian-100: #e9ebf0;
+  --color-obsidian-200: #ccd1dc;
+  --color-obsidian-300: #a1adbf;
+  --color-obsidian-400: #70819e;
+  --color-obsidian-500: #4e607e;
+  --color-obsidian-600: #3c4b64;
+  --color-obsidian-700: #303b50;
+  --color-obsidian-800: #1b212f;
+  --color-obsidian-900: #121620;
+  --color-obsidian-950: #0a0c12;
+
+  --color-gold-50: #faf7ef;
+  --color-gold-100: #f2ebd5;
+  --color-gold-200: #e4d6aa;
+  --color-gold-300: #d2b975;
+  --color-gold-400: #c09d47;
+  --color-gold-500: #aa8130;
+  --color-gold-600: #8c6323;
+  --color-gold-700: #6f491c;
+  --color-gold-800: #573918;
+  --color-gold-900: #482f17;
+  --color-gold-950: #29180a;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+
+  --animate-fade-in-up: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-draw-line: draw-line 1.5s cubic-bezier(0.85, 0, 0.15, 1) forwards;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes draw-line {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
+
+:root {
+  --background: #fffff4; /* Ivory light background */
+  --foreground: #0c0f16; /* Deep obsidian text */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fffff4;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccd1dc;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aa8130;
+}
+
+/* LIGHT GLASSMORPHISM (For main content pages) */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(12, 15, 22, 0.06);
+  color: #0c0f16;
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(170, 129, 48, 0.25);
+  box-shadow: 0 10px 30px rgba(170, 129, 48, 0.06);
+  transform: translateY(-2px);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(12, 15, 22, 0.1);
+  color: #0c0f16;
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: #aa8130;
+  box-shadow: 0 0 10px rgba(170, 129, 48, 0.15);
+}
+
+/* DARK GLASSMORPHISM (For Navbar, Footer, and dark overlay components) */
+.glass-panel-dark {
+  background: rgba(12, 16, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #f5f6f8;
+}
+
+.glass-panel-dark-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-dark-hover:hover {
+  background: rgba(12, 16, 26, 0.85);
+  border-color: rgba(170, 129, 48, 0.3);
+  box-shadow: 0 0 25px rgba(170, 129, 48, 0.1);
+  transform: translateY(-2px);
+}
+
+.glass-input-dark {
+  background: rgba(10, 12, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f5f6f8;
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-input-dark:focus {
+  outline: none;
+  border-color: #aa8130;
+  box-shadow: 0 0 10px rgba(170, 129, 48, 0.2);
+}
+
+/* Blueprint grids for light and dark settings */
+.blueprint-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(12, 15, 22, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(12, 15, 22, 0.03) 1px, transparent 1px);
+}
+
+.blueprint-grid-dark {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Text glow */
+.gold-glow {
+  text-shadow: 0 0 15px rgba(170, 129, 48, 0.3);
+}
+
+/* Hide standard header & footer on admin pages */
+body:has([data-admin-page="true"]) header,
+body:has([data-admin-page="true"]) footer {
+  display: none !important;
+}
+body:has([data-admin-page="true"]) main {
+  padding-top: 0 !important;
+}
+

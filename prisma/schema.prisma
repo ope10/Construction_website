@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Contact form submissions (both client inquiries and subcontractor bids)
+model ContactSubmission {
+  id                 String   @id @default(cuid())
+  type               String   // 'client' or 'subcontractor'
+  name               String
+  email              String
+  phone              String
+  company            String?
+  message            String
+  projectName        String?  // subcontractor only
+  bidAmount          String?  // subcontractor only
+  blueprintFileName  String?  // subcontractor only
+  transactionId      String   @unique
+  status             String   @default("new") // new, contacted, quoted, closed
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+// Estimate form submissions from the homepage widget
+model EstimateInquiry {
+  id            String   @id @default(cuid())
+  projectType   String   // residential, commercial, infrastructure
+  budget        String   // <5M, 5M-25M, 25M-100M, 100M+
+  timeline      String   // under-12m, 12m-24m, 24m-36m, 36m+
+  name          String
+  email         String
+  phone         String
+  details       String?
+  transactionId String   @unique
+  status        String   @default("new") // new, contacted, quoted, closed
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
