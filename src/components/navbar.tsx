@@ -38,12 +38,6 @@ export const Navbar: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-    setMobileServicesOpen(false);
-  }, [pathname]);
-
   const isServicesActive =
     pathname === '/services' || pathname.startsWith('/services/');
 
@@ -70,7 +64,8 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <header
+    <>
+      <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full',
         scrolled || isOpen
@@ -212,10 +207,16 @@ export const Navbar: React.FC = () => {
         </button>
       </div>
 
-      {/* Mobile Drawer Overlay */}
+      </header>
+
+      {/*
+        Keep the drawer outside the blurred header. WebKit treats a backdrop-filtered
+        ancestor as the containing block for fixed descendants, which can make this
+        layer disappear on physical mobile browsers.
+      */}
       <div
         className={cn(
-          'fixed inset-0 top-[72px] bg-obsidian-950/97 backdrop-blur-lg z-40 transition-transform duration-300 md:hidden border-t border-white/5',
+          'fixed inset-x-0 bottom-0 top-[72px] bg-obsidian-950/97 backdrop-blur-lg z-40 transition-transform duration-300 md:hidden border-t border-white/5',
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
@@ -305,6 +306,6 @@ export const Navbar: React.FC = () => {
           </div>
         </nav>
       </div>
-    </header>
+    </>
   );
 };
